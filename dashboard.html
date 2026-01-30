@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard | Tadika Al-Wasim</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>Sistem Pengurusan Tadika Al-Wasim</header>
+
+<div class="container">
+
+<!-- ================= SIDEBAR ================= -->
+<nav>
+  <div class="logo">
+    <img src="assets/logo/logo-al-wasim.png">
+    <span>Tadika Al-Wasim</span>
+  </div>
+
+  <button onclick="showSection('dashboard')">🏠 Dashboard</button>
+  <button onclick="showSection('kehadiran')">👧 Kehadiran Murid</button>
+  <button onclick="showSection('section-kehadiran-guru')">👩‍🏫 Kehadiran Guru</button>
+  <button onclick="showSection('section-murid')">📘 Maklumat Murid</button>
+  <button onclick="showSection('section-pencapaian')">⭐ Pencapaian Murid</button>
+  <button onclick="showSection('section-rph')">🗓️ RPH Mingguan</button>
+  <button onclick="showSection('section-guru')">👩‍🏫 Maklumat Guru</button>
+</nav>
+
+<!-- ================= MAIN ================= -->
+<main>
+
+<!-- ===== DASHBOARD ===== -->
+<div id="dashboard" class="section">
+  <div class="dashboard">
+    <div class="stat"><h3>Jumlah Murid</h3><p id="statJumlahMurid">0</p></div>
+    <div class="stat"><h3>Murid Hadir Hari Ini</h3><p id="statHadirMurid">0</p></div>
+    <div class="stat"><h3>Guru Hadir Hari Ini</h3><p id="statHadirGuru">0</p></div>
+    <div class="stat"><h3>RPH Minggu Ini</h3><p id="statRPH">0</p></div>
+  </div>
+</div>
+
+<!-- ===== KEHADIRAN MURID ===== -->
+<div id="kehadiran" class="section" style="display:none">
+  <div class="card">
+    <h2>👧 Kehadiran Murid</h2>
+
+    <div class="grid">
+      <div><label>Tarikh</label><input type="date" id="kmTarikh"></div>
+      <div><label>Nama Murid</label><input type="text" id="kmNama"></div>
+      <div><label>Hadir</label><input type="time" id="kmHadir"></div>
+      <div><label>Balik</label><input type="time" id="kmBalik"></div>
+    </div>
+
+    <label>Catatan</label>
+    <textarea id="kmCatatan"></textarea>
+
+    <button class="primary" onclick="simpanKehadiran()">Simpan</button>
+  </div>
+
+  <div class="card">
+    <label>📅 Filter Tarikh</label>
+    <input type="date" id="filterTarikh" onchange="paparKehadiran()">
+
+    <table width="100%" border="1" cellpadding="6">
+      <thead>
+        <tr>
+          <th>#</th><th>Tarikh</th><th>Nama</th><th>Hadir</th>
+          <th>Balik</th><th>Catatan</th><th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody id="kmTable"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ===== KEHADIRAN GURU ===== -->
+<div id="section-kehadiran-guru" class="section" style="display:none">
+  <div class="card">
+    <h2>👩‍🏫 Kehadiran Guru</h2>
+
+    <div class="grid">
+      <div><label>Tarikh</label><input type="date" id="tgTarikh"></div>
+      <div><label>Nama Guru</label><input type="text" id="tgNama"></div>
+      <div><label>Hadir</label><input type="time" id="tgHadir"></div>
+      <div><label>Balik</label><input type="time" id="tgBalik"></div>
+    </div>
+
+    <label>Catatan</label>
+    <textarea id="tgCatatan"></textarea>
+
+    <button class="primary" onclick="simpanKehadiranGuru()">Simpan</button>
+  </div>
+
+  <div class="card">
+    <label>📅 Filter Tarikh</label>
+    <input type="date" id="filterTarikhGuru" onchange="paparKehadiranGuru()">
+
+    <table width="100%" border="1" cellpadding="6">
+      <thead>
+        <tr>
+          <th>#</th><th>Tarikh</th><th>Nama</th>
+          <th>Hadir</th><th>Balik</th><th>Catatan</th><th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody id="tgTable"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ===== MAKLUMAT MURID ===== -->
+<div id="section-murid" class="section" style="display:none">
+  <div class="card">
+    <h2>📘 Maklumat Murid</h2>
+
+    <div class="grid">
+      <input placeholder="Nama Murid" id="mNama">
+      <input placeholder="No IC Murid" id="mIC">
+      <input placeholder="Nama Ibu" id="mIbu">
+      <input placeholder="IC Ibu" id="mICIbu">
+      <input placeholder="Nama Bapa" id="mBapa">
+      <input placeholder="IC Bapa" id="mICBapa">
+      <select id="mKelas">
+        <option value="">-- Pilih Kelas --</option>
+        <option value="4 i-Smart">4 i-Smart</option>
+        <option value="5 i-Intelligent">5 i-Intelligent</option>
+      </select>
+    </div>
+
+    <label>Alergik</label>
+    <textarea id="mAlergik"></textarea>
+
+    <button class="primary" onclick="simpanMurid()">Simpan</button>
+  </div>
+
+  <div class="card">
+    <input placeholder="Cari nama..." id="cariMurid" onkeyup="paparMurid()">
+    <table width="100%" border="1" cellpadding="6">
+      <thead>
+        <tr><th>#</th><th>Nama</th><th>IC</th><th>Kelas</th><th>Aksi</th></tr>
+      </thead>
+      <tbody id="muridTable"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ===== PENCAPAIAN MURID ===== -->
+<div id="section-pencapaian" class="section" style="display:none">
+  <div class="card">
+    <h2>⭐ Pencapaian Murid</h2>
+
+    <div class="grid">
+      <input type="date" id="pTarikh">
+      <input placeholder="Nama Murid" id="pNama">
+
+      <select id="pKategori" onchange="toggleIqra()">
+        <option value="">Kategori</option>
+        <option value="Iqra'">Iqra'</option>
+        <option value="Membaca">Membaca</option>
+        <option value="Matematik Awal">Matematik Awal</option>
+        <option value="Sains Awal">Sains Awal</option>
+      </select>
+
+      <select id="pJilid" style="display:none">
+        <option>1</option><option>2</option><option>3</option>
+        <option>4</option><option>5</option><option>6</option>
+      </select>
+
+      <select id="pTahap" onchange="paparMaksudTahap()">
+        <option>TP1</option><option>TP2</option><option>TP3</option>
+        <option>TP4</option><option>TP5</option><option>TP6</option>
+      </select>
+    </div>
+
+    <p id="maksudTahap"></p>
+    <textarea id="pCatatan" placeholder="Catatan guru"></textarea>
+    <button class="primary" onclick="simpanPencapaian()">Simpan</button>
+  </div>
+
+  <div class="card">
+    <table width="100%" border="1" cellpadding="6">
+      <thead>
+        <tr>
+          <th>#</th><th>Tarikh</th><th>Nama</th><th>Kategori</th>
+          <th>Jilid</th><th>Tahap</th><th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody id="pTable"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ===== RPH ===== -->
+<div id="section-rph" class="section" style="display:none">
+  <div class="card">
+    <h2>🗓️ RPH Mingguan</h2>
+
+    <div class="grid">
+      <input type="date" id="rMinggu">
+      <select id="rKelas" onchange="loadMuridRPH()">
+        <option value="">Kelas</option>
+        <option value="4 i-Smart">4 i-Smart</option>
+        <option value="5 i-Intelligent">5 i-Intelligent</option>
+      </select>
+      <select id="rNamaMurid"></select>
+      <input type="date" id="rTarikh">
+      <input type="time" id="rMasa">
+    </div>
+
+    <textarea id="rAktiviti" placeholder="Aktiviti"></textarea>
+    <textarea id="rBahan" placeholder="Bahan"></textarea>
+    <textarea id="rCatatan" placeholder="Catatan"></textarea>
+
+    <button class="primary" onclick="simpanRPH()">Simpan RPH</button>
+  </div>
+
+  <div class="card">
+    <input type="date" id="filterMinggu" onchange="paparRPH()">
+    <table width="100%" border="1" cellpadding="6">
+      <thead>
+        <tr>
+          <th>#</th><th>Kelas</th><th>Nama</th><th>Tarikh</th>
+          <th>Masa</th><th>Aktiviti</th><th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody id="rphTable"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ===== MAKLUMAT GURU ===== -->
+<div id="section-guru" class="section" style="display:none">
+  <div class="card">
+    <h2>👩‍🏫 Maklumat Guru</h2>
+
+    <div class="grid">
+      <input placeholder="Nama Guru" id="gNama">
+      <input placeholder="No IC" id="gIC">
+      <input placeholder="Telefon" id="gTelefon">
+      <input placeholder="Jawatan" id="gJawatan">
+      <select id="gKelas">
+        <option value="">Kelas</option>
+        <option value="4 i-Smart">4 i-Smart</option>
+        <option value="5 i-Intelligent">5 i-Intelligent</option>
+      </select>
+    </div>
+
+    <button class="primary" onclick="simpanGuru()">Simpan</button>
+  </div>
+
+  <div class="card">
+    <input placeholder="Cari guru..." id="cariGuru" onkeyup="paparGuru()">
+    <table width="100%" border="1" cellpadding="6">
+      <thead>
+        <tr><th>#</th><th>Nama</th><th>Telefon</th><th>Kelas</th><th>Aksi</th></tr>
+      </thead>
+      <tbody id="guruTable"></tbody>
+    </table>
+  </div>
+</div>
+
+</main>
+</div>
+
+<!-- ================= JS ================= -->
+<script src="js/auth.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/attendance.js"></script>
+<script src="js/teacherAttendance.js"></script>
+<script src="js/students.js"></script>
+<script src="js/guru.js"></script>
+<script src="js/achievements.js"></script>
+<script src="js/rph.js"></script>
+<script src="js/dashboard.js"></script>
+<script src="js/export.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <title>Login | Sistem Tadika</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    .login-wrapper {
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+    }
+    .login-box {
+      background:#fff;
+      padding:40px;
+      border-radius:22px;
+      width:100%;
+      max-width:380px;
+      box-shadow:0 20px 40px rgba(0,0,0,.08);
+      text-align:center;
+    }
+    .login-box h1 { color:#7c3aed; }
+    .login-box p { color:#777;font-size:14px;margin-bottom:20px; }
+  </style>
+</head>
+<body>
+
+<div class="login-wrapper">
+  <div class="login-box">
+    <img src="assets/logo/logo-al-wasim.png"
+     alt="Logo Tadika Al-Wasim"
+     style="width:80px;margin-bottom:10px">
+      <h1>Tadika Al-Wasim</h1>
+    <p>Sistem Pengurusan Tadika</p>
+
+    <label>Password</label>
+    <input type="password" id="password">
+
+    <button class="primary" onclick="login()">Log Masuk</button>
+  </div>
+</div>
+
+<script src="js/auth.js"></script>
+</body>
+</html>
